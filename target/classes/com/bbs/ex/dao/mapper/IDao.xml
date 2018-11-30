@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bbs.ex.dao.IDao">
+	<select id="list" resultType="com.bbs.ex.dto.BDto">
+		SELECT * FROM BOARD ORDER BY 1 DESC
+	</select>
+	
+	<insert id="write">
+		INSERT INTO BOARD VALUES(BOARD_SEQ.NEXTVAL, #{param1}, #{param2}, SYSDATE, SYSDATE, 0)
+	</insert>
+	
+	<select id="content_view" resultType="com.bbs.ex.dto.BDto">
+		SELECT * FROM BOARD WHERE BID = #{param1}
+	</select>
+	
+	<update id="upHit">
+		UPDATE BOARD SET BHIT = BHIT + 1 WHERE BID = #{param1}
+	</update>
+	
+	<select id="update_view" resultType="com.bbs.ex.dto.BDto">
+		SELECT * FROM BOARD WHERE bId = #{param1}
+	</select>
+	
+	<update id="update">
+		UPDATE BOARD SET BTITLE = #{param1}, BCONTENT = #{param2}, BMODIFY_DATE = SYSDATE WHERE BID = #{param3}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM BOARD WHERE BID = #{param1}
+	</delete>
+	
+	<select id="search" resultType="com.bbs.ex.dto.BDto">
+		SELECT * FROM BOARD WHERE BTITLE = #{param1} OR BCONTENT = #{param1}
+	</select>
+</mapper>
